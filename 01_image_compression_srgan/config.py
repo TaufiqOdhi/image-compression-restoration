@@ -5,8 +5,8 @@ from albumentations.pytorch import ToTensorV2
 
 #First Train using all loss func until Epoch 176
 
-TRAIN_PATH = "../datasets/DIV2K_train_HR/"
-VAL_PATH = "../datasets//DIV2K_valid_LR_x8/"
+TRAIN_PATH = "../../datasets/DIV2K_train_HR/"
+VAL_PATH = "../../datasets//DIV2K_valid_LR_x8/"
 LOAD_MODEL = False
 SAVE_MODEL = True
 CHECKPOINT_GEN = "gen.pth.tar"

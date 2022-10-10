@@ -5,7 +5,7 @@ from albumentations.pytorch import ToTensorV2
 from model import Generator
 from torchvision.utils import make_grid
 
-CKPT_PATH = "ckpt_weights/gen.pth.tar"
+CKPT_PATH = "gen.pth.tar"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 gen = Generator()

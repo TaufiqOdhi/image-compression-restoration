@@ -66,7 +66,10 @@ def plot_examples(low_res_folder, gen):
                     .to(config.DEVICE)
                 )
             save_image(upscaled_img * 0.5 + 0.5, f"saved/{file}")
-        except : print('Memory insufficient for that image')
+        except FileNotFoundError:
+            pass
+        except:
+            print('Memory insufficient for that image')
     gen.train()
 
 def compress(img: np.ndarray, ratio:int):

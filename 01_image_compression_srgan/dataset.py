@@ -25,7 +25,7 @@ class MyImageFolder(Dataset):
 
 
 def test():
-    dataset = MyImageFolder(root_dir="Datasets/train_val_images/")
+    dataset = MyImageFolder(root_dir=config.TRAIN_PATH)
     loader = DataLoader(dataset, batch_size=1, num_workers=8)
 
     for low_res, high_res in loader:

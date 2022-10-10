@@ -1,0 +1,8 @@
+train resolusi tinggi HR images
+
+validasi 4x bicubic low res
+
+train path -> folder isi gambar
+val path -> folder isi gambar
+
+

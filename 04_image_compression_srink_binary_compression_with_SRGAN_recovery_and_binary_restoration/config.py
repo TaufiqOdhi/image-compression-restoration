@@ -5,8 +5,8 @@ from albumentations.pytorch import ToTensorV2
 
 #First Train using all loss func until Epoch 176
 
-TRAIN_PATH = "../datasets/DIV2K_train_HR/"
-VAL_PATH = "../datasets/DIV2K_valid_LR_bicubic_X4/"
+TRAIN_PATH = "../../datasets/DIV2K_train_HR/"
+VAL_PATH = "../../datasets/DIV2K_valid_LR_bicubic/X4/"
 LOAD_MODEL = False
 SAVE_MODEL = True
 CHECKPOINT_GEN = "gen.pth.tar"
@@ -14,7 +14,7 @@ CHECKPOINT_DISC = "disc.pth.tar"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 LEARNING_RATE = 1e-4
 START_EPOCHS = 1
-NUM_EPOCHS = 500
+NUM_EPOCHS = 150
 BATCH_SIZE = 2
 NUM_WORKERS = 4
 HIGH_RES = 224
