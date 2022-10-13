@@ -50,7 +50,7 @@ if __name__ == '__main__':
     from PIL import Image
 
     IMAGE_PATH = "../03_image_compression_srink_binary_compression_with_SRGAN_recovery/asset/Compressed/result.png"
-    RESULT_PATH = "asset/Restored/result.png"
+    RESULT_PATH = "results/result3.png"
 
     image = np.asarray(Image.open(IMAGE_PATH))
 

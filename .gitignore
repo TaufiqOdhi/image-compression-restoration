@@ -131,5 +131,6 @@ dmypy.json
 datasets
 01_image_compression_srgan/test.py
 trashbin
-saved
+saved/
+results/
 *.pth.tar

@@ -2,9 +2,9 @@ import torch
 import os
 import config
 import numpy as np
+import pydicom
 from PIL import Image
 from torchvision.utils import save_image
-import numpy as np
 from albumentations import Resize
 
 def gradient_penalty(critic, real, fake, device):
@@ -52,24 +52,25 @@ def load_checkpoint(checkpoint_file, model, optimizer, lr):
 
 
 def plot_examples(low_res_folder, gen):
-    os.system("rm saved/*")
+    # os.system("rm saved/*")
     files = os.listdir(low_res_folder)
     np.random.shuffle(files)
     gen.eval()
-    for file in files[:10]:
-        image = Image.open(low_res_folder + file)
-        try:
-            with torch.no_grad():
-                upscaled_img = gen(
-                    config.test_transform(image=np.asarray(image))["image"]
-                    .unsqueeze(0)
-                    .to(config.DEVICE)
-                )
-            save_image(upscaled_img * 0.5 + 0.5, f"saved/{file}")
-        except FileNotFoundError:
-            pass
-        except:
-            print('Memory insufficient for that image')
+    # for file in files[:10]:
+    #     # image = Image.open(low_res_folder + file)
+    #     image = pydicom.read_file(low_res_folder+file).pixel_array
+    #     try:
+    #         with torch.no_grad():
+    #             upscaled_img = gen(
+    #                 config.test_transform(image=np.asarray(image))["image"]
+    #                 .unsqueeze(0)
+    #                 .to(config.DEVICE)
+    #             )
+    #         # save_image(upscaled_img * 0.5 + 0.5, f"saved/{file}")
+    #     except FileNotFoundError:
+    #         pass
+    #     # except:
+    #     #     print('Memory insufficient for that image')
     gen.train()
 
 def compress(img: np.ndarray, ratio:int):

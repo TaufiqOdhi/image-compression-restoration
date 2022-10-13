@@ -6,3 +6,12 @@ train path -> folder isi gambar
 val path -> folder isi gambar
 
 
+==================================================================
+ini shapenya: (1024, 1024)  => dicom dataset from kaggle
+ValueError: operands could not be broadcast together with shapes (224,224) (3,) (224,224) 
+
+ini shapenya: (1536, 2040, 3) => DIV2K dataset
+
+tipe numpy array gambar baik dicom atau dari DIV2k ==> uint8
+
+==================================================================

@@ -39,10 +39,14 @@ def train_fn(loader, disc, gen, opt_gen, opt_disc, mse, bce, vgg_loss):
         disc_fake = disc(fake)
         l2_loss = mse(fake, high_res)
         adversarial_loss = bce(disc_fake, torch.ones_like(disc_fake))
-        loss_for_vgg = vgg_loss(fake, high_res)
-        # gen_loss = loss_for_vgg + adversarial_loss + l2_loss
-        gen_loss = 6e-2 * loss_for_vgg + 1e-2 * adversarial_loss + 0.92*l2_loss
-        # print(f'Generative loss:{gen_loss}')
+        
+        # =============From Original Code============
+        # loss_for_vgg = vgg_loss(fake, high_res)
+        # # gen_loss = loss_for_vgg + adversarial_loss + l2_loss
+        # gen_loss = 6e-2 * loss_for_vgg + 1e-2 * adversarial_loss + 0.92*l2_loss
+        # # print(f'Generative loss:{gen_loss}')
+
+        gen_loss = 1e-2 * adversarial_loss + 0.92*l2_loss
 
         opt_gen.zero_grad()
         gen_loss.backward()
@@ -62,13 +66,14 @@ def main():
         pin_memory=True,
         num_workers=config.NUM_WORKERS,
     )
-    gen = Generator(in_channels=3, ratio=config.RATIO).to(config.DEVICE)
-    disc = Discriminator(in_channels=3).to(config.DEVICE)
+    gen = Generator(in_channels=1, ratio=config.RATIO).to(config.DEVICE)
+    disc = Discriminator(in_channels=1).to(config.DEVICE)
     opt_gen = optim.Adam(gen.parameters(), lr=config.LEARNING_RATE, betas=(0.9, 0.999))
     opt_disc = optim.Adam(disc.parameters(), lr=config.LEARNING_RATE, betas=(0.9, 0.999))
     mse = nn.MSELoss()
     bce = nn.BCEWithLogitsLoss()
-    vgg_loss = VGGLoss()
+    # vgg_loss = VGGLoss()
+    vgg_loss = None
 
     if config.LOAD_MODEL:
         load_checkpoint(
