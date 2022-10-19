@@ -10,8 +10,8 @@ TRAIN_PATH = "../../datasets/dicom_images_kaggle/"
 # TRAIN_PATH = "results/dicom_to_jpg/"
 # TRAIN_PATH = "../../datasets/Mri_Brain_Contrast-663058577/3D_Brain_FLAIR_201"
 
-# VAL_PATH = "../../datasets/DIV2K_valid_LR_bicubic/X4/"
-VAL_PATH = "../../datasets/dicom_images_kaggle/"
+VAL_PATH = "../../datasets/DIV2K_valid_LR_bicubic/X4/"
+# VAL_PATH = "../../datasets/dicom_images_kaggle_valid/"
 # VAL_PATH = "results/dicom_to_jpg/"
 # VAL_PATH = "../../datasets/Mri_Brain_Contrast-663058577/3D_Brain_T2_301"
 
@@ -32,8 +32,8 @@ IMG_CHANNELS = 3
 
 highres_transform = A.Compose(
     [
-        # A.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]),
-        A.Normalize(mean=[0.5], std=[0.5]),
+        A.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]),
+        # A.Normalize(mean=[0.5], std=[0.5]),
         ToTensorV2(),
     ]
 )
@@ -41,8 +41,8 @@ highres_transform = A.Compose(
 lowres_transform = A.Compose(
     [
         A.Resize(width=LOW_RES, height=LOW_RES, interpolation=Image.BICUBIC),
-        # A.Normalize(mean=[0, 0, 0], std=[1, 1, 1]),
-        A.Normalize(mean=[0], std=[1]),
+        A.Normalize(mean=[0, 0, 0], std=[1, 1, 1]),
+        # A.Normalize(mean=[0], std=[1]),
         ToTensorV2(),
     ]
 )
@@ -57,8 +57,8 @@ both_transforms = A.Compose(
 
 test_transform = A.Compose(
     [
-        # A.Normalize(mean=[0, 0, 0], std=[1, 1, 1]),
-        A.Normalize(mean=[0], std=[1]),
+        A.Normalize(mean=[0, 0, 0], std=[1, 1, 1]),
+        # A.Normalize(mean=[0], std=[1]),
         ToTensorV2(),
     ]
 )

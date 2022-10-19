@@ -56,7 +56,7 @@ def plot_examples(low_res_folder, gen):
     files = os.listdir(low_res_folder)
     np.random.shuffle(files)
     gen.eval()
-    # for file in files[:10]:
+    # for file in files[:5]:
     #     # image = Image.open(low_res_folder + file)
     #     image = pydicom.read_file(low_res_folder+file).pixel_array
     #     try:
@@ -66,11 +66,11 @@ def plot_examples(low_res_folder, gen):
     #                 .unsqueeze(0)
     #                 .to(config.DEVICE)
     #             )
-    #         # save_image(upscaled_img * 0.5 + 0.5, f"saved/{file}")
+    #         save_image(upscaled_img * 0.5 + 0.5, f"saved/{file}")
     #     except FileNotFoundError:
     #         pass
-    #     # except:
-    #     #     print('Memory insufficient for that image')
+    #     except:
+    #         print('Memory insufficient for that image')
     gen.train()
 
 def compress(img: np.ndarray, ratio:int):

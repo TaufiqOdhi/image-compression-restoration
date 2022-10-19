@@ -15,3 +15,15 @@ ini shapenya: (1536, 2040, 3) => DIV2K dataset
 tipe numpy array gambar baik dicom atau dari DIV2k ==> uint8
 
 ==================================================================
+bahan ppt
+
+discrimantor loss apa?
+generative loss apa ?
+perbedaan model dengan yang gambar rgb div2k
+pemahaman konsepnya secara teori, konsep arsitektur deep learningnya
+
+
+
+train dicom 2d first try:
+train data count = 1064
+

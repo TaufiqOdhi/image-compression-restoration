@@ -66,14 +66,16 @@ def main():
         pin_memory=True,
         num_workers=config.NUM_WORKERS,
     )
-    gen = Generator(in_channels=1, ratio=config.RATIO).to(config.DEVICE)
-    disc = Discriminator(in_channels=1).to(config.DEVICE)
+    gen = Generator(in_channels=3, ratio=config.RATIO).to(config.DEVICE)
+    # gen = Generator(in_channels=1, ratio=config.RATIO).to(config.DEVICE)
+    disc = Discriminator(in_channels=3).to(config.DEVICE)
+    # disc = Discriminator(in_channels=1).to(config.DEVICE)
     opt_gen = optim.Adam(gen.parameters(), lr=config.LEARNING_RATE, betas=(0.9, 0.999))
     opt_disc = optim.Adam(disc.parameters(), lr=config.LEARNING_RATE, betas=(0.9, 0.999))
     mse = nn.MSELoss()
     bce = nn.BCEWithLogitsLoss()
-    # vgg_loss = VGGLoss()
-    vgg_loss = None
+    vgg_loss = VGGLoss()
+    # vgg_loss = None
 
     if config.LOAD_MODEL:
         load_checkpoint(

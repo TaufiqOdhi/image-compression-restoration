@@ -134,3 +134,6 @@ trashbin
 saved/
 results/
 *.pth.tar
+
+# Dicom image
+*.dcm
