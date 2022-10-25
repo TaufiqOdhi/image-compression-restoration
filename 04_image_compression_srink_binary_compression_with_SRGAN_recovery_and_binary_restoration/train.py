@@ -81,15 +81,18 @@ def main(mode='default'):
 
     
     if config.LOAD_MODEL:
-        load_checkpoint(
-            config.CHECKPOINT_GEN,
-            gen,
-            opt_gen,
-            config.LEARNING_RATE,
-        )
-        load_checkpoint(
-           config.CHECKPOINT_DISC, disc, opt_disc, config.LEARNING_RATE,
-        )
+        try:
+            load_checkpoint(
+                config.CHECKPOINT_GEN,
+                gen,
+                opt_gen,
+                config.LEARNING_RATE,
+            )
+            load_checkpoint(
+                config.CHECKPOINT_DISC, disc, opt_disc, config.LEARNING_RATE,
+            )
+        except FileNotFoundError:
+            pass
 
     for epoch in range(config.START_EPOCHS-1,config.NUM_EPOCHS):
         print(f'======================EPOCH: {epoch+1}=====================')
