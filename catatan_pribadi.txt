@@ -26,4 +26,6 @@ pemahaman konsepnya secara teori, konsep arsitektur deep learningnya
 
 train dicom 2d first try:
 train data count = 1064
-
+==================================================================
+hasil compresi disajikan berupa tabel
+menambah layer wise prune 

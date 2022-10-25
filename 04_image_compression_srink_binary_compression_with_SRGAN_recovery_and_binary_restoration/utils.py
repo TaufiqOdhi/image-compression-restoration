@@ -52,7 +52,8 @@ def load_checkpoint(checkpoint_file, model, optimizer, lr):
 
 
 def plot_examples(low_res_folder, gen):
-    os.system("rm saved/*")
+    # os.system("rm saved/*")
+    os.system("powershell rm saved/*") # for running in windows system
     files = os.listdir(low_res_folder)
     np.random.shuffle(files)
     gen.eval()
