@@ -15,13 +15,17 @@ VAL_PATH = "../../datasets/DIV2K_valid_LR_bicubic/X4/"
 # VAL_PATH = "results/dicom_to_jpg/"
 # VAL_PATH = "../../datasets/Mri_Brain_Contrast-663058577/3D_Brain_T2_301"
 
-LOAD_MODEL = False
+LOAD_MODEL = True
 SAVE_MODEL = True
 CHECKPOINT_GEN = "gen.pth.tar"
 CHECKPOINT_DISC = "disc.pth.tar"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 LEARNING_RATE = 1e-4
-START_EPOCHS = 1
+try:
+    with open("current_complete_epoch.txt", 'r') as f:
+        START_EPOCHS = int(f.read().split(',')[1])+1 # start next after current complete epoch
+except FileNotFoundError:
+    START_EPOCHS = 1
 NUM_EPOCHS = 10
 BATCH_SIZE = 2
 NUM_WORKERS = 4

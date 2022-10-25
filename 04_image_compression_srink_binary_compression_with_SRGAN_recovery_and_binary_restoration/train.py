@@ -54,7 +54,8 @@ def train_fn(loader, disc, gen, opt_gen, opt_disc, mse, bce, vgg_loss):
             print(f'discrimantor loss:{loss_disc}')
             print(f'Generative loss:{gen_loss}')
 
-def main():
+
+def main(mode='default'):
     dataset = MyImageFolder(root_dir=config.TRAIN_PATH)
     loader = DataLoader(
         dataset,
@@ -63,8 +64,14 @@ def main():
         pin_memory=True,
         num_workers=config.NUM_WORKERS,
     )
-    gen = Generator(in_channels=3, ratio=config.RATIO).to(config.DEVICE)
-    # gen = GeneratorPruned(in_channels=3, ratio=config.RATIO).to(config.DEVICE)
+
+
+    if mode == 'pruned':
+        gen = GeneratorPruned(in_channels=3, ratio=config.RATIO).to(config.DEVICE)
+    else:
+        gen = Generator(in_channels=3, ratio=config.RATIO).to(config.DEVICE)
+    
+
     disc = Discriminator(in_channels=3).to(config.DEVICE)
     opt_gen = optim.Adam(gen.parameters(), lr=config.LEARNING_RATE, betas=(0.9, 0.999))
     opt_disc = optim.Adam(disc.parameters(), lr=config.LEARNING_RATE, betas=(0.9, 0.999))
@@ -91,6 +98,15 @@ def main():
         if config.SAVE_MODEL:
             save_checkpoint(gen, opt_gen, filename=config.CHECKPOINT_GEN)
             save_checkpoint(disc, opt_disc, filename=config.CHECKPOINT_DISC)
+            f = open("current_epoch.txt", "w")
+            f.write(f"{mode},{epoch+1}")
+            f.close()
+
+
+
+def run_pruned():
+    print('running with pruned model')
+    main(mode='pruned')
 
 
 if __name__ == "__main__":

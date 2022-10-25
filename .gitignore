@@ -137,3 +137,6 @@ results/
 
 # Dicom image
 *.dcm
+
+# Other
+current_complete_epoch.txt
