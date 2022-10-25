@@ -86,16 +86,16 @@ def compress(img):
 if __name__ == '__main__':
     from PIL import Image
 
-    # IMAGE_ORIGINAL_LR_PATH = "../../datasets/DIV2K_valid_LR_bicubic/X4/0805x4.png"
-    IMAGE_ORIGINAL_LR_PATH = "../../datasets/dicom_images_kaggle/ID_0a0adf93f.dcm"
-    # IMAGE_ORIGINAL_HR_PATH = "../../datasets/DIV2K_valid_HR/0805.png"
+    IMAGE_ORIGINAL_LR_PATH = "../../datasets/DIV2K_valid_LR_bicubic/X4/0805x4.png"
+    # IMAGE_ORIGINAL_LR_PATH = "../../datasets/dicom_images_kaggle/ID_0a0adf93f.dcm"
+    IMAGE_ORIGINAL_HR_PATH = "../../datasets/DIV2K_valid_HR/0805.png"
     # IMAGE_PATH = "../03_image_compression_srink_binary_compression_with_SRGAN_recovery/asset/Compressed/result.png"
-    IMAGE_PATH = "../02_binary_compression/sample_image/compressed_image.png"
+    # IMAGE_PATH = "../02_binary_compression/sample_image/compressed_image.png"
     RESULT_PATH = "results/result6_2.png"
 
-    # image_original_lr = cv2.imread(IMAGE_ORIGINAL_LR_PATH)
-    image_original_lr = cv2.cvtColor(pydicom.dcmread(IMAGE_ORIGINAL_LR_PATH).pixel_array, cv2.COLOR_GRAY2RGB)
-    # image_original_hr = cv2.imread(IMAGE_ORIGINAL_HR_PATH)
+    image_original_lr = cv2.imread(IMAGE_ORIGINAL_LR_PATH)
+    # image_original_lr = cv2.cvtColor(pydicom.dcmread(IMAGE_ORIGINAL_LR_PATH).pixel_array, cv2.COLOR_GRAY2RGB)
+    image_original_hr = cv2.imread(IMAGE_ORIGINAL_HR_PATH)
 
     # ds=pydicom.dcmread(IMAGE_PATH)
     # img=ds.pixel_array
@@ -108,7 +108,7 @@ if __name__ == '__main__':
     image_recovery_srgan = recovery_srgan(image_original_lr)
 
     print(f"PSNR: {psnr(image_original_lr, image_recovery_binary)}")
-    # print(f"PSNR: {psnr(image_original_hr, image_recovery_srgan)}")
+    print(f"PSNR: {psnr(image_original_hr, image_recovery_srgan)}")
 
     # image = Image.fromarray(image)
     # image.save(RESULT_PATH)

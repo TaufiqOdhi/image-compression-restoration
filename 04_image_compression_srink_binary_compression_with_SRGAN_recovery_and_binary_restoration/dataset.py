@@ -20,9 +20,9 @@ class MyImageFolder(Dataset):
     def __getitem__(self, index):
         img_file = self.data[index]
         
-        # image = np.array(Image.open(img_file))
-        ds = pydicom.read_file(img_file)
-        image = np.array(ds.pixel_array)
+        image = np.array(Image.open(img_file))
+        # ds = pydicom.read_file(img_file)
+        # image = np.array(ds.pixel_array)
 
         image = config.both_transforms(image=image)["image"]
         high_res = config.highres_transform(image=image)["image"]

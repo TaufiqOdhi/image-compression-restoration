@@ -1,6 +1,6 @@
-Pillow
+# Pillow
 albumentations
 tqdm
-matplotlib
-pandas
+# matplotlib
+# pandas
 pydicom

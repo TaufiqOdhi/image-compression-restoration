@@ -5,8 +5,8 @@ from albumentations.pytorch import ToTensorV2
 
 #First Train using all loss func until Epoch 176
 
-# TRAIN_PATH = "../../datasets/DIV2K_train_HR/"
-TRAIN_PATH = "../../datasets/dicom_images_kaggle/"
+TRAIN_PATH = "../../datasets/DIV2K_train_HR/"
+# TRAIN_PATH = "../../datasets/dicom_images_kaggle/"
 # TRAIN_PATH = "results/dicom_to_jpg/"
 # TRAIN_PATH = "../../datasets/Mri_Brain_Contrast-663058577/3D_Brain_FLAIR_201"
 
