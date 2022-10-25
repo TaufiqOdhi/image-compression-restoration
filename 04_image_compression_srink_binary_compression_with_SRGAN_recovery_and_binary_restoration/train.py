@@ -98,7 +98,7 @@ def main(mode='default'):
         if config.SAVE_MODEL:
             save_checkpoint(gen, opt_gen, filename=config.CHECKPOINT_GEN)
             save_checkpoint(disc, opt_disc, filename=config.CHECKPOINT_DISC)
-            f = open("current_epoch.txt", "w")
+            f = open("current_complete_epoch.txt", "w")
             f.write(f"{mode},{epoch+1}")
             f.close()
 
