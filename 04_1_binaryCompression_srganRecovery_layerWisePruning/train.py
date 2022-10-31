@@ -5,7 +5,7 @@ from torch import optim
 from utils import load_checkpoint, save_checkpoint, plot_examples
 from loss import VGGLoss
 from torch.utils.data import DataLoader
-from model import Generator, Discriminator
+from model import Discriminator, GeneratorPruned
 from tqdm import tqdm
 from dataset import MyImageFolder
 
@@ -53,6 +53,10 @@ def train_fn(loader, disc, gen, opt_gen, opt_disc, mse, bce, vgg_loss):
             plot_examples(config.VAL_PATH, gen)
             print(f'discrimantor loss:{loss_disc}')
             print(f'Generative loss:{gen_loss}')
+            f = open("current_complete_epoch.txt", "a")
+            f.write(f'discrimantor loss:{loss_disc}')
+            f.write(f'Generative loss:{gen_loss}')
+            f.close()
 
 
 def main():
@@ -66,7 +70,7 @@ def main():
     )
 
 
-    gen = Generator(in_channels=3, ratio=config.RATIO).to(config.DEVICE)
+    gen = GeneratorPruned(in_channels=3, ratio=config.RATIO).to(config.DEVICE)
     disc = Discriminator(in_channels=3).to(config.DEVICE)
     opt_gen = optim.Adam(gen.parameters(), lr=config.LEARNING_RATE, betas=(0.9, 0.999))
     opt_disc = optim.Adam(disc.parameters(), lr=config.LEARNING_RATE, betas=(0.9, 0.999))
@@ -97,7 +101,7 @@ def main():
             save_checkpoint(gen, opt_gen, filename=config.CHECKPOINT_GEN)
             save_checkpoint(disc, opt_disc, filename=config.CHECKPOINT_DISC)
             f = open("current_complete_epoch.txt", "w")
-            f.write(f"default,{epoch+1}")
+            f.write(f"random unstructured global,{epoch+1}")
             f.close()
 
 

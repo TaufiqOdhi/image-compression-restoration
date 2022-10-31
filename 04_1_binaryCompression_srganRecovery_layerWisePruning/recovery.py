@@ -2,21 +2,21 @@ from utils import *
 import torch
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
-from model import Generator
+from model import Generator, GeneratorPruned
 from torchvision.utils import make_grid
 import pydicom
 import cv2
 from PIL import Image
 from math import log10, sqrt
 
-CKPT_PATH = "checkpoints/170-an-epoch/gen.pth.tar"
+CKPT_PATH = "checkpoints/176-epoch-pruned-model/gen.pth.tar"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 IMAGE_ORIGINAL_LR_PATH = "../../datasets/DIV2K_valid_LR_bicubic/X4/0805x4.png"
 # IMAGE_ORIGINAL_LR_PATH = "../../datasets/dicom_images_kaggle/ID_0a0adf93f.dcm"
 IMAGE_ORIGINAL_HR_PATH = "../../datasets/DIV2K_valid_HR/0805.png"
 RESULT_DIR_PATH = "../../hasil/image-compression-restoration/"
 
-gen = Generator()
+gen = GeneratorPruned() # if use pruned model
 gen.load_state_dict(torch.load(CKPT_PATH)["state_dict"])
 gen.eval().to(DEVICE)
 
