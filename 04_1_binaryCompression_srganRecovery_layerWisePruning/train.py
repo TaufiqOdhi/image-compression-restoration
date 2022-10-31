@@ -53,10 +53,8 @@ def train_fn(loader, disc, gen, opt_gen, opt_disc, mse, bce, vgg_loss):
             plot_examples(config.VAL_PATH, gen)
             print(f'discrimantor loss:{loss_disc}')
             print(f'Generative loss:{gen_loss}')
-            f = open("current_complete_epoch.txt", "a")
-            f.write(f'discrimantor loss:{loss_disc}')
-            f.write(f'Generative loss:{gen_loss}')
-            f.close()
+
+    return (loss_disc, gen_loss)
 
 
 def main():
@@ -95,13 +93,15 @@ def main():
 
     for epoch in range(config.START_EPOCHS-1,config.NUM_EPOCHS):
         print(f'======================EPOCH: {epoch+1}=====================')
-        train_fn(loader, disc, gen, opt_gen, opt_disc, mse, bce, vgg_loss)
+        loss_disc, gen_loss = train_fn(loader, disc, gen, opt_gen, opt_disc, mse, bce, vgg_loss)
 
         if config.SAVE_MODEL:
             save_checkpoint(gen, opt_gen, filename=config.CHECKPOINT_GEN)
             save_checkpoint(disc, opt_disc, filename=config.CHECKPOINT_DISC)
             f = open("current_complete_epoch.txt", "w")
             f.write(f"random unstructured global,{epoch+1}")
+            f.write(f'\ndiscrimantor loss:{loss_disc}')
+            f.write(f'\nGenerative loss:{gen_loss}')
             f.close()
 
 
