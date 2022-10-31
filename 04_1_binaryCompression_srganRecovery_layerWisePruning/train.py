@@ -5,7 +5,7 @@ from torch import optim
 from utils import load_checkpoint, save_checkpoint, plot_examples
 from loss import VGGLoss
 from torch.utils.data import DataLoader
-from model import Discriminator, GeneratorPruned
+from model import Discriminator
 from tqdm import tqdm
 from dataset import MyImageFolder
 
@@ -57,7 +57,14 @@ def train_fn(loader, disc, gen, opt_gen, opt_disc, mse, bce, vgg_loss):
     return (loss_disc, gen_loss)
 
 
-def main():
+def main(pruned_model='random unstructured global'):
+    print(pruned_model)
+    if pruned_model == 'l1 norm':
+        from model.prune_l1_norm import GeneratorPruned
+    else:
+        from model.prune_random_unstructured_global import GeneratorPruned
+
+
     dataset = MyImageFolder(root_dir=config.TRAIN_PATH)
     loader = DataLoader(
         dataset,
@@ -99,7 +106,7 @@ def main():
             save_checkpoint(gen, opt_gen, filename=config.CHECKPOINT_GEN)
             save_checkpoint(disc, opt_disc, filename=config.CHECKPOINT_DISC)
             f = open("current_complete_epoch.txt", "w")
-            f.write(f"random unstructured global,{epoch+1}")
+            f.write(f"{pruned_model}\n{epoch+1}")
             f.write(f'\ndiscrimantor loss:{loss_disc}')
             f.write(f'\nGenerative loss:{gen_loss}')
             f.close()

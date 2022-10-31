@@ -23,7 +23,7 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 LEARNING_RATE = 1e-4
 try:
     with open("current_complete_epoch.txt", 'r') as f:
-        START_EPOCHS = int(f.read().split(',')[1])+1 # start next after current complete epoch
+        START_EPOCHS = int(f.read().split('\n')[1])+1 # start next after current complete epoch
 except FileNotFoundError:
     START_EPOCHS = 1
 NUM_EPOCHS = 10
