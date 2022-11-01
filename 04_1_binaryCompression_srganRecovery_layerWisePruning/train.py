@@ -61,6 +61,8 @@ def main(pruned_model='random unstructured global'):
     print(pruned_model)
     if pruned_model == 'l1 norm':
         from model.prune_l1_norm import GeneratorPruned
+    elif pruned_model == 'l2 norm':
+        from model.prune_l2_norm import GeneratorPruned
     else:
         from model.prune_random_unstructured_global import GeneratorPruned
 
@@ -110,6 +112,8 @@ def main(pruned_model='random unstructured global'):
             f.write(f'\ndiscrimantor loss:{loss_disc}')
             f.write(f'\nGenerative loss:{gen_loss}')
             f.close()
+        
+        print(pruned_model)
 
 
 if __name__ == "__main__":

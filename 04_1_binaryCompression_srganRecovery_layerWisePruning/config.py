@@ -33,6 +33,7 @@ HIGH_RES = 224
 RATIO = 4
 LOW_RES = HIGH_RES // RATIO
 IMG_CHANNELS = 3
+PRUNE_AMOUNT = 0.3
 
 highres_transform = A.Compose(
     [
