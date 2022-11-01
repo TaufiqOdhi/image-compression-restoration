@@ -111,6 +111,7 @@ def main(pruned_model='random unstructured global'):
             f.write(f"{pruned_model}\n{epoch+1}")
             f.write(f'\ndiscrimantor loss:{loss_disc}')
             f.write(f'\nGenerative loss:{gen_loss}')
+            f.write(f'\nPrune Amount: {config.PRUNE_AMOUNT}')
             f.close()
         
         print(pruned_model)
