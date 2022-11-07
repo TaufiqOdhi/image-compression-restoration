@@ -63,8 +63,10 @@ def main(pruned_model='random unstructured global'):
         from model.prune_l1_norm import GeneratorPruned
     elif pruned_model == 'l2 norm':
         from model.prune_l2_norm import GeneratorPruned
-    else:
+    elif pruned_model == 'random unstructured global':
         from model.prune_random_unstructured_global import GeneratorPruned
+    else:
+        return
 
 
     dataset = MyImageFolder(root_dir=config.TRAIN_PATH)
