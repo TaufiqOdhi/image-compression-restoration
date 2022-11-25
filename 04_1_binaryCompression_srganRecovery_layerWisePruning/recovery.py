@@ -7,15 +7,16 @@ import pydicom
 import cv2
 from PIL import Image
 from math import log10, sqrt
+from skimage.metrics import structural_similarity as ssim
 
 
-from model.prune_l2_norm import GeneratorPruned
-CKPT_PATH = "checkpoints/l2normGlobal_pruned_176_epoch/50/gen.pth.tar"
+from model.prune_random_unstructured_global import GeneratorPruned
+CKPT_PATH = "checkpoints/randomUnstructuredGlobal/176-epoch-pruned-model/30/gen.pth.tar"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 IMAGE_ORIGINAL_LR_PATH = "../../datasets/DIV2K_valid_LR_bicubic/X4/0805x4.png"
 # IMAGE_ORIGINAL_LR_PATH = "../../datasets/dicom_images_kaggle/ID_0a0adf93f.dcm"
 IMAGE_ORIGINAL_HR_PATH = "../../datasets/DIV2K_valid_HR/0805.png"
-RESULT_DIR_PATH = "../../hasil/image-compression-restoration/l2_norm_global/50/"
+RESULT_DIR_PATH = "../../hasil/image-compression-restoration/random_unstructured_global/30/"
 
 gen = GeneratorPruned() # if use pruned model
 gen.load_state_dict(torch.load(CKPT_PATH)["state_dict"])
@@ -112,6 +113,7 @@ if __name__ == '__main__':
 
     print(f"PSNR LR Image: {psnr(image_original_lr, image_recovery_binary)}")
     print(f"PSNR HR Image: {psnr(image_original_hr, image_recovery_srgan)}")
+    print(f"SSIM HR Image: {ssim(image_original_hr, image_recovery_srgan, channel_axis=2)}")
 
     Image.fromarray(image_original_lr).save(f"{RESULT_DIR_PATH}original_image.png")
     Image.fromarray(image).save(f"{RESULT_DIR_PATH}compressed_image.png")
