@@ -1,4 +1,5 @@
-from utils import *
+from utils import bit8to4, bit4to8
+import numpy as np
 import torch
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
@@ -8,6 +9,7 @@ import cv2
 from PIL import Image
 from math import log10, sqrt
 from skimage.metrics import structural_similarity as ssim
+from compress import compress_binary
 
 
 from model.prune_random_unstructured_global import GeneratorPruned
@@ -66,27 +68,6 @@ def psnr(img1, img2):
     return psnr
 
 
-def combinebit(img_4_bit):
-    h,w, _ = img_4_bit.shape
-    # h,w = img_4_bit.shape
-
-    if h % 2 == 0:
-        top_img = img_4_bit[:h//2]
-        bottom_img = img_4_bit[h//2:]
-
-    else:
-        raise ValueError("height shape should be even, please resize your height of image into become even number")
-
-    return top_img+(bottom_img*16)
-
-
-def compress(img):
-    img_4_bit = bit8to4(img)
-    img_combined = combinebit(img_4_bit)
-
-    return img_combined
-
-
 def to_hr():
     image_original_lr = np.asarray(Image.open(IMAGE_ORIGINAL_LR_PATH))
     image_original_hr = np.asarray(Image.open(IMAGE_ORIGINAL_HR_PATH))
@@ -107,7 +88,7 @@ if __name__ == '__main__':
     # image = np.asarray(img)
     image = np.asarray(Image.open(IMAGE_ORIGINAL_LR_PATH)) # untuk load gambar rgb biasa
     
-    image = compress(image_original_lr) 
+    image = compress_binary(image_original_lr) 
     image_recovery_binary = recovery_binary(image)
     image_recovery_srgan = recovery_srgan(image_original_lr)
 
