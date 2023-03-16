@@ -5,12 +5,12 @@ from albumentations.pytorch import ToTensorV2
 
 #First Train using all loss func until Epoch 176
 
-TRAIN_PATH = "../../datasets/DIV2K_train_HR/"
+TRAIN_PATH = "/media/odhi/Windows/Users/taufi/MyFile/Projects/datasets/DIV2K_train_HR/"
 # TRAIN_PATH = "../../datasets/dicom_images_kaggle/"
 # TRAIN_PATH = "results/dicom_to_jpg/"
 # TRAIN_PATH = "../../datasets/Mri_Brain_Contrast-663058577/3D_Brain_FLAIR_201"
 
-VAL_PATH = "../../datasets/DIV2K_valid_LR_bicubic/X4/"
+VAL_PATH = "/media/odhi/Windows/Users/taufi/MyFile/Projects/datasets/DIV2K_valid_LR_bicubic/X4/"
 # VAL_PATH = "../../datasets/dicom_images_kaggle_valid/"
 # VAL_PATH = "results/dicom_to_jpg/"
 # VAL_PATH = "../../datasets/Mri_Brain_Contrast-663058577/3D_Brain_T2_301"

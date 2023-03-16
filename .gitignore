@@ -140,3 +140,6 @@ results/
 
 # Other
 current_complete_epoch.txt
+vram_consumption.txt
+hasil/
+vram_logs/

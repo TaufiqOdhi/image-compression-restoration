@@ -10,19 +10,20 @@ from PIL import Image
 from math import log10, sqrt
 from skimage.metrics import structural_similarity as ssim
 from compress import compress_binary
+import os
 
 
 from model.prune_random_unstructured_global import GeneratorPruned
-CKPT_PATH = "checkpoints/randomUnstructuredGlobal/176-epoch-pruned-model/30/gen.pth.tar"
+CKPT_PATH = "/mnt/Windows/Users/taufi/MyFile/Projects/image-compression-restoration/04_1_binaryCompression_srganRecovery_layerWisePruning/checkpoints/randomUnstructuredGlobal/176-epoch-pruned-model/30/gen.pth.tar"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-IMAGE_ORIGINAL_LR_PATH = "../../datasets/DIV2K_valid_LR_bicubic/X4/0805x4.png"
+IMAGE_ORIGINAL_LR_PATH = "/mnt/Windows/Users/taufi/MyFile/Projects/datasets/DIV2K_valid_LR_bicubic/X4/0805x4.png"
 # IMAGE_ORIGINAL_LR_PATH = "../../datasets/dicom_images_kaggle/ID_0a0adf93f.dcm"
-IMAGE_ORIGINAL_HR_PATH = "../../datasets/DIV2K_valid_HR/0805.png"
-RESULT_DIR_PATH = "../../hasil/image-compression-restoration/random_unstructured_global/30/"
+IMAGE_ORIGINAL_HR_PATH = "/mnt/Windows/Users/taufi/MyFile/Projects/datasets/DIV2K_valid_HR/0805.png"
+RESULT_DIR_PATH = "./hasil/"
 
-gen = GeneratorPruned() # if use pruned model
-gen.load_state_dict(torch.load(CKPT_PATH)["state_dict"])
-gen.eval().to(DEVICE)
+gen_global = GeneratorPruned() # if use pruned model
+gen_global.load_state_dict(torch.load(CKPT_PATH)["state_dict"])
+gen_global.eval().to(DEVICE)
 
 test_transform = A.Compose(
     [
@@ -31,7 +32,7 @@ test_transform = A.Compose(
     ]
 )
 
-def recovery_srgan(img):
+def recovery_srgan(img, gen=gen_global):
     with torch.no_grad():
         upscaled_img = gen(
             test_transform(image=np.asarray(img))["image"]
@@ -100,3 +101,4 @@ if __name__ == '__main__':
     Image.fromarray(image).save(f"{RESULT_DIR_PATH}compressed_image.png")
     Image.fromarray(image_recovery_binary).save(f"{RESULT_DIR_PATH}decompressed_image.png")
     Image.fromarray(image_recovery_srgan).save(f"{RESULT_DIR_PATH}hr_image.png")
+    os.system('nvidia-smi >> vram_consumption.txt')
